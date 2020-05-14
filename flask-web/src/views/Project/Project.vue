@@ -49,7 +49,6 @@
       </el-table>
       <div style="margin-top: 20px">
         <el-button @click="todelete()">删除</el-button>
-        <!-- <el-button @click="toggleSelection()">取消选择</el-button> -->
       </div>
     </div>
   </div>
@@ -60,16 +59,17 @@ import axios from "axios";
 import Qs from 'qs';
 
 export default {
+  inject: ['reload'],
   name: "project",
   data() {
     return {
       input: "",
       tableData3: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, 
+        // {
+        //   date: "2016-05-03",
+        //   name: "王小虎",
+        //   address: "上海市普陀区金沙江路 1518 弄"
+        // }, 
       ],
       dialogTableVisible: false,
       dialogFormVisible: false,
@@ -93,26 +93,32 @@ export default {
   },
   methods: {
     add_project: function(){
-      // console.log(this.form.name)
-      var data = Qs.stringify({
-        "name": this.form.name,
-        "region": this.form.region,
-        "version": this.form.version
+      if(this.form.name=='' && this.form.region=='' && this.form.version==''){
+          alert('输入内容不能为空！！！');
+          return false;
+      }else{
+        // console.log(this.form.name)
+        var data = Qs.stringify({
+          "name": this.form.name,
+          "region": this.form.region,
+          "version": this.form.version
+          })
+        axios.post('http://127.0.0.1:5000/addProject', data)
+        .then((res)=>{
+          console.log(res.data.data)
         })
-      axios.post('http://127.0.0.1:5000/add_project', data)
-      .then((res)=>{
-        // console.log(res.data)
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
-      this.dialogFormVisible = false;
-      this.$router.go(0)
+        .catch((error)=>{
+          console.log(error)
+        })
+        this.dialogFormVisible = false;
+        console.log('11111')
+        this.reload();
+      } 
     },
 
     project_list: function(){
       // var self = this;
-      axios.get('http://127.0.0.1:5000/project_list')
+      axios.get('http://127.0.0.1:5000/projectList')
         .then((res)=>{
           console.log(this.tableData3)
           this.tableData3 = res.data.data;

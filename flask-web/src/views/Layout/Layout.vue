@@ -15,6 +15,9 @@
           <el-footer>
               <Footer></Footer>
           </el-footer>
+          <div>
+              index页面
+          </div>
       </el-container>
   </div>
 </template>
@@ -54,7 +57,7 @@ export default {
         position: absolute;
         top: 70px;
         bottom: 60px;
-        border-bottom: 1px solid #e6e6e6;
+        border-bottom: 1px solid #0f4bcc;
         border-bottom: 10px;
     }
     .el-menu{
@@ -62,7 +65,7 @@ export default {
     }
     .el-aside{
         height: 100%;
-        border-right: solid 1px #e6e6e6;
+        border-right: solid 1px #56389b;
     }
     
 </style>

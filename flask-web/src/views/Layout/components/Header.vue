@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="logo">
-      <img src="../../../assets/img/login_logo.png">
+      <p>
+        <router-link to="/">自动化平台</router-link>
+        </p>
         <!-- <img src="../../../assets/img/login_logo.png" alt="登录图片"> -->
     </div>
     <div class="link-btn">测试账号</div>
@@ -12,7 +14,6 @@
 export default {
   name: '',
   components: {
-
   },
   data () {
     return {
