@@ -7,19 +7,19 @@
             @open="handleOpen"
             @close="handleClose"
           >
-          <router-link to="project">
+          <router-link :to="{ path: '/project'}">
               <el-menu-item index="project">
                   <i class="el-icon-location"></i>
                   <span slot="title">项目列表</span>
               </el-menu-item>
           </router-link>
-          <router-link to="module">
+          <router-link :to="{ path: '/module'}">
               <el-menu-item index="module">
                   <i class="el-icon-news"></i>
                   <span slot="title">模块列表</span>
               </el-menu-item>
           </router-link>
-          <router-link to="case">
+          <router-link :to="{ path: '/case'}">
               <el-menu-item index="case">
                   <i class="el-icon-tickets"></i>
                   <span slot="title">用例列表</span>

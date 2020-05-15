@@ -1,16 +1,14 @@
 from common.models import Project, User
 from flask import Blueprint, request
 from common.exts import db
+from common.common import create_uuid
 
 project = Blueprint('project', __name__)
 
 @project.route('/projectList', methods=['GET', 'POST'])
 def projectList():
-    # data = Project.query().all()
-    print('-----')
     data = db.session.query(Project).all()
     all_data = []
-    print(data)
     for row in data:
         res_data = {}
         res_data['name'] = row.project_name
@@ -24,16 +22,15 @@ def projectList():
         'data': all_data
     }
     return res
-
+    # return 'success'
 
 @project.route('/addProject', methods=['GET', 'POST'])
 def addProject():
-    project_name = request.form.get('name')
+    uuid = create_uuid()
+    name = request.form.get('name')
     region = request.form.get('region')
     version = request.form.get('version')
-    # user_id = 1
-    # print(project_name, region, version)
-    add_data = Project(project_name=project_name, project_region=region, project_version=version)
+    add_data = Project(uuid=uuid, project_name=name, project_region=region, project_version=version)
     db.session.add(add_data)
     db.session.commit()
     data = {
@@ -42,7 +39,23 @@ def addProject():
     }
     return data
 
-
 @project.route('deleteProject', methods=['GET', 'POST'])
 def deleteProject(id):
     return id
+
+
+@project.route('/projectlist', methods=['GET', 'POST'])
+def projectlist():
+    project = db.session.query(Project).all()
+    data =[]
+    for p in project:
+        res = {}
+        res['value'] = p.uuid
+        res['label'] = p.project_name
+        data.append(res)
+    res_data = {
+        'static': 1,
+        'message': 'success',
+        'data': data
+    }
+    return res_data

@@ -2,6 +2,8 @@
   <div>
       <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/project' }">项目列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/module' }">模块列表</el-breadcrumb-item>
       <el-breadcrumb-item>用例列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div>

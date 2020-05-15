@@ -5,7 +5,7 @@ from flask_script import Manager
 from flask_migrate import MigrateCommand, Migrate
 from run import app
 from common.exts import db
-from common.models import User, Project
+from common.models import User
 
 
 # 让python支持命令行工作

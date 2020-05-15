@@ -3,8 +3,10 @@ import uuid
 from flask import Flask, render_template, request, redirect, url_for
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from common.models import User, Project
+from common.models import User
 from api.project import project
+from api.module import module
+from common.common import create_uuid
 
 # 通过 static_folder 指定静态资源路径，以便 index.html 能正确访问 CSS 等静态资源
 # template_folder 指定模板路径，以便 render_template 能正确渲染 index.html
@@ -16,6 +18,7 @@ app = Flask(
     )
 
 app.register_blueprint(project, url_prefix="/")
+app.register_blueprint(module, url_prefix="/")
 
 
 CORS(app)
@@ -35,10 +38,11 @@ def home():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    '''
-    这个API用来测试跨域
-    '''
-    return 'success'
+    uuid = create_uuid()
+    user_data = User(uuid=uuid, username='mengzhaojun', password='123456')
+    db.session.add(user_data)
+    db.session.commit()
+    return uuid
 
 
 if __name__ == '__main__':
